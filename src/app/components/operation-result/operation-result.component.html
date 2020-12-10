@@ -1,0 +1,15 @@
+<h4 class="title" *ngIf="title">{{title}}</h4>
+<ul class="result">
+	<li class="result__item">
+		<span class="result__label">Сумма</span>
+		<span class="result__value green">	{{operationResult.operationAmount | currency : currencyCode : 'symbol'}}</span>
+	</li>
+	<li class="result__item" class="red">
+		<span class="result__label">Комиссия</span>
+		<span class="result__value red">{{operationResult.commissionAmount | currency : currencyCode : 'symbol'}}</span>
+	</li>
+	<li class="result__item">
+		<span class="result__label">Сумма с учетом комисии</span>
+		<span class="result__value">	{{operationResult.fullAmount | currency : currencyCode : 'symbol'}}</span>
+	</li>
+</ul>

@@ -1,0 +1,12 @@
+.title {
+  margin: 0;
+}
+.result {
+  font-size: 10px;
+  margin: 0 0 10px 0;
+}
+
+.result__label {
+  display: inline-block;
+  min-width: 160px;
+}

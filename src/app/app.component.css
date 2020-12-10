@@ -1,0 +1,16 @@
+.data {
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.data__label {
+  min-width: 160px;
+  margin-right: 20px;
+}
+
+.data__value-risk-loss,
+.data__value-risk-take {
+  width: 50px;
+}
+
+

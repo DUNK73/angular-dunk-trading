@@ -1,0 +1,133 @@
+<section [formGroup]="depositOptionsForm">
+  <h1>Параметры портфеля</h1>
+
+  <div class="data">
+    <div class="data__label">депозит</div>
+    <div class="data__value">
+      <input class="data__value" formControlName="deposit" />
+    </div>
+  </div>
+
+  <div class="data">
+    <div class="data__label">риск</div>
+    <div class="data__value">
+      <input class="data__value" formControlName="risk" />
+    </div>
+  </div>
+
+  <div class="data">
+    <div class="data__label">сумма риска</div>
+    <div class="data__value">{{depositOptions.riskAmount}}</div>
+  </div>
+
+  <div class="data">
+    <div class="data__label">соотношение риск/прибыль</div>
+    <div class="data__value">
+      <input class="data__value-risk-loss" formControlName="riskLoss" />
+      /
+      <input class="data__value-risk-take" formControlName="riskTake" />
+    </div>
+  </div>
+</section>
+
+<section [formGroup]="operationForm">
+  <h1>
+    Параметры сделки
+    <label><input name="currency" type="radio" />RUB</label>
+    <label><input name="currency" type="radio" />USD</label>
+  </h1>
+
+  <ng-container formGroupName="toolOptions">
+    <div class="data">
+      <div class="data__label">шаг цены</div>
+      <div class="data__value">
+        <input class="data__value" formControlName="priceStep" />
+      </div>
+    </div>
+
+    <div class="data">
+      <div class="data__label">стоимость шага цены</div>
+      <div class="data__value">
+        <input class="data__value" formControlName="priceStepCost" />
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="data">
+    <div class="data__label">цена входа</div>
+    <div class="data__value">
+      <input class="data__value" formControlName="startPrice" />
+    </div>
+  </div>
+
+  <div class="data">
+    <div class="data__label">цена стоплоса</div>
+    <div class="data__value">
+      <input class="data__value" formControlName="lossPrice" />
+    </div>
+  </div>
+
+  <div class="data">
+    <div class="data__label">стоп лос в пунктах</div>
+    <div class="data__value">{{operation.lossPoints}}</div>
+  </div>
+
+  <button (click)="calculate()">Расчитать</button>
+
+</section>
+
+<section>
+  <h1>Расчет сделки</h1>
+
+  <div class="data">
+    <div class="data__label">риск на сделку</div>
+    <div class="data__value">{{operation.riskOnOperation  | currency : currencyCode : 'symbol'}}</div>
+  </div>
+
+  <div class="data">
+    <div class="data__label">количество лот</div>
+    <div class="data__value">{{operation.lots}}</div>
+  </div>
+
+  <div class="data">
+    <div class="data__label">тейк профит в пунктах</div>
+    <div class="data__value">{{operation.takePoints}}</div>
+  </div>
+
+  <div class="data">
+    <div class="data__label">тейк профит</div>
+    <div class="data__value">{{operation.takePrice  | currency : currencyCode : 'symbol'}}</div>
+  </div>
+</section>
+
+<section>
+  <h1>Результат</h1>
+  <app-operation-result
+    title="вход"
+    [operationResult]="this.operation.entryResult"
+  >
+  </app-operation-result>
+  <app-operation-result
+    title="лосс"
+    [operationResult]="this.operation.lossResult"
+  >
+  </app-operation-result>
+  <app-operation-result
+    title="тэйк"
+    [operationResult]="this.operation.takeResult"
+  >
+  </app-operation-result>
+
+  <div class="data">
+    <div class="data__label">потеря</div>
+    <div class="data__value red">
+      {{this.operation.loss | currency : currencyCode : 'symbol'}}
+    </div>
+  </div>
+  <div class="data">
+    <div class="data__label">прибыль</div>
+    <div class="data__value green">
+      {{this.operation.profit | currency : currencyCode : 'symbol'}}
+    </div>
+  </div>
+</section>
