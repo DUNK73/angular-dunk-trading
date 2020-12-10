@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "angular-dunk-trading"
+  "defaultProject": "angular-dunk-trading",
+  "cli": {
+    "analytics": false
+  }
 }

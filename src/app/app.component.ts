@@ -48,7 +48,7 @@ export class ConstData {
 }
 
 export class ToolOption {
-  constructor(public priceStep: number, public priceStepCost: number) {}
+  constructor(public priceStep: number, public priceStepCost: number) { }
 }
 
 export class Operation {
@@ -82,9 +82,15 @@ export class Operation {
     constData: ConstData,
     toolOptions: ToolOption,
     startPrice: number,
-    lossPrice: number
+    lossPrice: number,
+    rate: number = 1,
   ) {
-    this.constData = constData;
+    this.constData = new ConstData(
+      constData.deposit * rate,
+      constData.commission * rate,
+      constData.risk,
+      1, 3
+    );
     this.toolOptions = toolOptions;
 
     this.startPrice = startPrice;
@@ -94,8 +100,8 @@ export class Operation {
   private getLots(): number {
     return Math.trunc(
       this.constData.riskAmount /
-        ((this.lossPoints / this.toolOptions.priceStep) *
-          this.toolOptions.priceStepCost)
+      ((this.lossPoints / this.toolOptions.priceStep) *
+        this.toolOptions.priceStepCost)
     );
   }
 
@@ -248,7 +254,8 @@ export class AppComponent {
     this.depositOptions,
     new ToolOption(0.1, 0.1),
     205.86,
-    204.34
+    204.34,
+    1/73
   );
 
   public depositOptionsForm = new FormGroup({
@@ -272,7 +279,7 @@ export class AppComponent {
     })
   });
 
-  constructor(private exchangeRateService: ExchangeRateService) {}
+  constructor(private exchangeRateService: ExchangeRateService) { }
 
   ngOnInit() {
     this.exchangeRateService.getRates().subscribe();
