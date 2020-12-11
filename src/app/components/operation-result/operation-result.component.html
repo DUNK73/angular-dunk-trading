@@ -2,14 +2,14 @@
 <ul class="result">
 	<li class="result__item">
 		<span class="result__label">Сумма</span>
-		<span class="result__value green">	{{operationResult.operationAmount | currency : currencyCode : 'symbol'}}</span>
+		<span class="result__value yellow">	{{operationResult?.operationAmount | currency : currencyCode : 'symbol'}}</span>
 	</li>
 	<li class="result__item" class="red">
 		<span class="result__label">Комиссия</span>
-		<span class="result__value red">{{operationResult.commissionAmount | currency : currencyCode : 'symbol'}}</span>
+		<span class="result__value red">{{operationResult?.commissionAmount | currency : currencyCode : 'symbol'}}</span>
 	</li>
 	<li class="result__item">
 		<span class="result__label">Сумма с учетом комисии</span>
-		<span class="result__value">	{{operationResult.fullAmount | currency : currencyCode : 'symbol'}}</span>
+		<span class="result__value">	{{operationResult?.fullAmount | currency : currencyCode : 'symbol'}}</span>
 	</li>
 </ul>

@@ -12,7 +12,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 registerLocaleData(localeRu, "ru");
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
   declarations: [AppComponent, HelloComponent, OperationResultComponent],
   providers: [
     {

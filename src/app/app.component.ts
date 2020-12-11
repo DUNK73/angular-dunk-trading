@@ -1,6 +1,7 @@
 import { Component, VERSION } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { tap } from "rxjs/operators";
+import { Rates } from './model/rates';
 import { ExchangeRateService } from "./services/exchange-rate.service";
 
 export class OperationResult {
@@ -52,6 +53,13 @@ export class ToolOption {
 }
 
 export class Operation {
+
+  public setRate(rate: number) {
+    this.rate = rate;
+  }
+
+  public rate: number = 1;
+
   public constData: ConstData;
   public toolOptions: ToolOption;
 
@@ -85,12 +93,7 @@ export class Operation {
     lossPrice: number,
     rate: number = 1,
   ) {
-    this.constData = new ConstData(
-      constData.deposit * rate,
-      constData.commission * rate,
-      constData.risk,
-      1, 3
-    );
+    this.constData = constData;
     this.toolOptions = toolOptions;
 
     this.startPrice = startPrice;
@@ -99,7 +102,7 @@ export class Operation {
 
   private getLots(): number {
     return Math.trunc(
-      this.constData.riskAmount /
+      this.constData.riskAmount * this.rate /
       ((this.lossPoints / this.toolOptions.priceStep) *
         this.toolOptions.priceStepCost)
     );
@@ -107,9 +110,6 @@ export class Operation {
 
   private calculateOperationAmount(lots: number, price: number): number {
     return Math.abs(lots * price);
-  }
-  private calculateComissionAmountOfOperation(amount: number): number {
-    return amount * this.constData.commission;
   }
 
   private getProfitPoints(): number {
@@ -142,17 +142,17 @@ export class Operation {
     while (whileStop) {
       let entryResult = new OperationResult(
         this.calculateOperationAmount(this.lots, this.startPrice),
-        this.constData.commission
+        this.constData.commission * this.rate
       );
 
       let lossResult = new OperationResult(
         this.calculateOperationAmount(this.lots, this.lossPrice),
-        this.constData.commission
+        this.constData.commission * this.rate
       );
 
       let takeResult = new OperationResult(
         this.calculateOperationAmount(this.lots, this.getProfitPrice()),
-        this.constData.commission
+        this.constData.commission * this.rate
       );
 
       this.entryResult = entryResult;
@@ -192,7 +192,7 @@ export class Operation {
         takeResult: takeResult
       });
 
-      if (this.riskOnOperation < this.constData.riskAmount) {
+      if (this.riskOnOperation < this.constData.riskAmount * this.rate) {
         whileStop = false;
       }
 
@@ -236,10 +236,12 @@ export class Operation {
 @Component({
   selector: "my-app",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.less"]
 })
 export class AppComponent {
   name = "Angular " + VERSION.major;
+
+  private rates: Rates;
 
   public currencyCode = "RUB";
 
@@ -255,8 +257,16 @@ export class AppComponent {
     new ToolOption(0.1, 0.1),
     205.86,
     204.34,
-    1/73
+    1 / 73
   );
+
+  public getRate(code: string): number {
+    let valute = this.rates.Valute[code];
+    if (!valute) return 1;
+    return 1 / valute.Value;
+  }
+
+  public rateControl = new FormControl('RUB');
 
   public depositOptionsForm = new FormGroup({
     deposit: new FormControl(),
@@ -282,7 +292,13 @@ export class AppComponent {
   constructor(private exchangeRateService: ExchangeRateService) { }
 
   ngOnInit() {
-    this.exchangeRateService.getRates().subscribe();
+    this.exchangeRateService.getRates()
+      .pipe(
+        tap(x => {
+          this.rates = x;
+        })
+      )
+      .subscribe();
 
     this.depositOptionsForm.patchValue(this.depositOptions);
     this.operationForm.patchValue(this.operation);
@@ -302,6 +318,16 @@ export class AppComponent {
       .pipe(
         tap(x => {
           Object.assign(this.operation, x);
+        })
+      )
+      .subscribe();
+
+    this.rateControl
+      .valueChanges
+      .pipe(
+        tap(code => {
+          this.currencyCode = code;
+          this.operation.setRate(this.getRate(code));
         })
       )
       .subscribe();

@@ -1,0 +1,14 @@
+@import 'variables.less';
+
+.button {
+  border: 1px solid @border-color;
+  background-color: transparent;
+  display: flex;
+  padding: 0 20px;
+  border-radius: 20px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: fade(@border-color, 10%);
+  }
+}
