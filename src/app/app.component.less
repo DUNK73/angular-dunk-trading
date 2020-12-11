@@ -1,21 +1,29 @@
-
 .app-wrapper {
   margin: 0 auto;
-  width: 50%;
 }
+
 .data {
   margin-bottom: 2px;
   display: flex;
-}
 
-.data__label {
-  min-width: 180px;
-  margin-right: 20px;
-}
+  &__label {
+    width: 50%;
+    margin-right: 20px;
+  }
 
-.data__value-risk-loss,
-.data__value-risk-take {
-  width: 50px;
+  &__value {
+    width: 50%;
+  }
+
+  &__value input {
+    width: 100%;
+    text-align: right;
+  }
+
+ &__value &__value-risk-loss,
+ &__value &__value-risk-take {
+    width: 20px;
+  }
 }
 
 h1 {
@@ -25,8 +33,17 @@ h1 {
 .calculate-button {
   margin: 0 auto;
 }
+
 .operation-results {
   display: flex;
   justify-content: space-between;
 }
 
+@media (min-width:480px) {
+
+  .data__label {
+    min-width: 180px;
+    margin-right: 20px;
+  }
+
+}

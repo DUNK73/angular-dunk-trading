@@ -3,7 +3,7 @@
     <h1>Параметры портфеля</h1>
 
     <div class="data">
-      <div class="data__label">депозит</div>
+      <div class="data__label">Депозит</div>
       <div class="data__value">
         <input class="data__value" formControlName="deposit" />
       </div>
@@ -11,7 +11,7 @@
 
     <div class="data">
       <div class="data__label">
-        <a href="https://www.tinkoff.ru/invest/tariffs/">комиссия с сделки</a>
+        <a href="https://www.tinkoff.ru/invest/tariffs/">Комиссия с сделки</a>
       </div>
       <div class="data__value">
         <input class="data__value" formControlName="commission" />
@@ -19,19 +19,19 @@
     </div>
 
     <div class="data">
-      <div class="data__label">риск</div>
+      <div class="data__label">Риск</div>
       <div class="data__value">
         <input class="data__value" formControlName="risk" />
       </div>
     </div>
 
     <div class="data">
-      <div class="data__label">сумма риска</div>
+      <div class="data__label">Сумма риска</div>
       <div class="data__value">{{ depositOptions?.riskAmount }}</div>
     </div>
 
     <div class="data">
-      <div class="data__label">соотношение риск/прибыль</div>
+      <div class="data__label">Соотношение риск/прибыль</div>
       <div class="data__value">
         <input
           class="data__value-risk-loss"
@@ -52,8 +52,8 @@
     <h1>Параметры сделки</h1>
 
     <div class="data">
-      <div class="data__label">валюта</div>
-      <div class="data__value">
+      <div class="data__label">Валюта</div>
+      <div class="">
         <label
           ><input
             name="currency"
@@ -75,14 +75,14 @@
 
     <ng-container formGroupName="toolOptions">
       <div class="data">
-        <div class="data__label">шаг цены</div>
+        <div class="data__label">Шаг цены</div>
         <div class="data__value">
           <input class="data__value" formControlName="priceStep" />
         </div>
       </div>
 
       <div class="data">
-        <div class="data__label">стоимость шага цены</div>
+        <div class="data__label">Стоимость шага цены</div>
         <div class="data__value">
           <input class="data__value" formControlName="priceStepCost" />
         </div>
@@ -90,21 +90,21 @@
     </ng-container>
 
     <div class="data">
-      <div class="data__label">цена входа</div>
+      <div class="data__label">Цена входа</div>
       <div class="data__value">
         <input class="data__value" formControlName="startPrice" />
       </div>
     </div>
 
     <div class="data">
-      <div class="data__label">цена стоплоса</div>
+      <div class="data__label">Цена стоплоса</div>
       <div class="data__value">
         <input class="data__value" formControlName="lossPrice" />
       </div>
     </div>
 
     <div class="data">
-      <div class="data__label">стоп лос в пунктах</div>
+      <div class="data__label">Стоп лос в пунктах</div>
       <div class="data__value">{{ operation?.lossPoints }}</div>
     </div>
 
@@ -165,13 +165,13 @@
     </div>
 
     <div class="data">
-      <div class="data__label">потеря</div>
+      <div class="data__label">Потеря</div>
       <div class="data__value red">
         {{ this.operation?.loss | currency: currencyCode:"symbol" }}
       </div>
     </div>
     <div class="data">
-      <div class="data__label">прибыль</div>
+      <div class="data__label">Прибыль</div>
       <div class="data__value green">
         {{ this.operation?.profit | currency: currencyCode:"symbol" }}
       </div>
