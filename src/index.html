@@ -36,28 +36,7 @@
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
-
     </script>
 
-    <script>
-      // Get a reference to the database service
-      var database = firebase.database();
-      firebase
-        .database()
-        .ref("users/" + 1)
-        .set({
-          username: "name",
-          email: "email",
-          profile_picture: "imageUrl",
-        });
-
-      firebase
-        .database()
-        .ref("users/" + 1)
-        .once("value")
-        .then((snapshot) => {
-          alert(snapshot);
-        });
-    </script>
   </body>
 </html>

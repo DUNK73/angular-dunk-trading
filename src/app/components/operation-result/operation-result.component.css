@@ -4,9 +4,10 @@
 .result {
   font-size: 10px;
   margin: 0 0 10px 0;
+  padding: 0 0 0 12px
 }
 
 .result__label {
   display: inline-block;
-  min-width: 160px;
+  min-width: 100px;
 }
