@@ -1,9 +1,19 @@
 @import 'assets/less/button.less';
 @import 'assets/less/input.less';
+@import 'assets/less/variables.less';
+@import 'assets/less/form-grid.less';
 
 
 body {
   font-family: 'Roboto', sans-serif;
+  background-color: @background-color;
+  color: @text-color;
+}
+
+input,
+textarea {
+  background: transparent;
+  color: @text-color;
 }
 
 .red {

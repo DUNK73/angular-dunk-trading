@@ -1,0 +1,40 @@
+
+.form-grid {
+  margin-bottom: 2px;
+  display: flex;
+
+  &__label {
+    width: 50%;
+    margin-right: 20px;
+  }
+
+  &__value {
+    width: 50%;
+  }
+
+  &__value input,
+  &__value textarea   {
+    width: 100%;
+    text-align: right;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+ &__value &__value-risk-loss,
+ &__value &__value-risk-take {
+    width: 40px;
+    padding: 0 6px;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+
+@media (min-width:480px) {
+
+  .data__label {
+    min-width: 180px;
+    margin-right: 20px;
+  }
+
+}

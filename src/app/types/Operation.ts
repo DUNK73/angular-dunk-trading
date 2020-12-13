@@ -88,8 +88,7 @@ export class Operation {
     }> = [];
 
     this.lots = startLots;
-    let whileStop = true;
-    while (whileStop) {
+    while (true) {
       let entryResult = new OperationResult(
         this.calculateOperationAmount(this.lots, this.startPrice),
         this.constData.commission
@@ -100,14 +99,8 @@ export class Operation {
         this.constData.commission
       );
 
-      let takeResult = new OperationResult(
-        this.calculateOperationAmount(this.lots, this.getProfitPrice()),
-        this.constData.commission
-      );
-
       this.entryResult = entryResult;
       this.lossResult = lossResult;
-      this.takeResult = takeResult;
 
       if (this.isLong) {
         this.riskOnOperation =
@@ -122,6 +115,12 @@ export class Operation {
           Math.abs(this.entryResult.commissionAmount) +
           Math.abs(this.lossResult.commissionAmount);
       }
+
+      let takeResult = new OperationResult(
+        this.calculateOperationAmount(this.lots, this.getProfitPrice()),
+        this.constData.commission
+      );
+      this.takeResult = takeResult;
 
       // console.group("CALCULATION", this.lots);
       // console.log("entry", this.entryResult);
@@ -141,7 +140,7 @@ export class Operation {
       });
 
       if (this.riskOnOperation < this.constData.riskAmount * this.rate) {
-        whileStop = false;
+        break;
       }
 
       this.lots = this.lots - (this.isLong ? 1 : -1);

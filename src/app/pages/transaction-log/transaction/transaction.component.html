@@ -1,0 +1,149 @@
+<section>
+  <form [formGroup]="detailForm">
+    <div class="form-grid">
+      <div class="form-grid__label">id</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="id"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Дата</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          type="datetime-local"
+          formControlName="date"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Тикер</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="ticker"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Обоснование входа</div>
+      <div class="form-grid__value">
+        <textarea
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="rationaleForEntry"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Состояние рынка</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="marketCondition"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Паттерн №</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="patternNumber"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Наличие объема</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="volumeAvailability"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Способ выхода</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="wayOut"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Оценка входа</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="evaluationOfEntrance"
+        />
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-grid__label">Max возможный профит фактор</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="maxPossibleProfitFactor"
+        />
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-grid__label">Результат сделки</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="transactionResult"
+        />
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-grid__label">Депозит</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="deposit"
+        />
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-grid__label">Ошибки</div>
+      <div class="form-grid__value">
+        <textarea
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="mistakes"
+        ></textarea>
+      </div>
+    </div>
+
+    <section class="form-buttons">
+      <button class="button" (click)="save()">Сохранить</button>
+      <button class="button" (click)="cancel()">Отменить</button>
+    </section>
+
+  </form>
+</section>

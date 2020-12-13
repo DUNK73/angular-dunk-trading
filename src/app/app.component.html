@@ -1,180 +1,23 @@
-<div class="app-wrapper">
-  <section [formGroup]="depositOptionsForm">
-    <h1>Параметры портфеля</h1>
+<header>
+  <nav>
+    <ul class="menu">
+      <li class="menu__item">
+        <a class="menu__item-linc" [routerLink]="['transaction-calculation']" [routerLinkActive]="'menu__item-linc--active'">
+          <app-svg-calculation-icon></app-svg-calculation-icon>
+        </a>
+      </li>
+      <li class="menu__item">
 
-    <div class="data">
-      <div class="data__label">Депозит</div>
-      <div class="data__value">
-        <input class="data__value" formControlName="deposit" />
-      </div>
-    </div>
+        <a class="menu__item-linc" [routerLink]="['transaction-log']" [routerLinkActive]="'menu__item-linc--active'">
+          <app-svg-log-icon></app-svg-log-icon>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
 
-    <div class="data">
-      <div class="data__label">
-        <a href="https://www.tinkoff.ru/invest/tariffs/">Комиссия с сделки</a>
-      </div>
-      <div class="data__value">
-        <input class="data__value" formControlName="commission" />
-      </div>
-    </div>
+<main>
+  <router-outlet></router-outlet>
+</main>
 
-    <div class="data">
-      <div class="data__label">Риск</div>
-      <div class="data__value">
-        <input class="data__value" formControlName="risk" />
-      </div>
-    </div>
-
-    <div class="data">
-      <div class="data__label">Сумма риска</div>
-      <div class="data__value">{{ depositOptions?.riskAmount }}</div>
-    </div>
-
-    <div class="data">
-      <div class="data__label">Соотношение риск/прибыль</div>
-      <div class="data__value">
-        <input
-          class="data__value-risk-loss"
-          type="number"
-          formControlName="riskLoss"
-        />
-        /
-        <input
-          class="data__value-risk-take"
-          type="number"
-          formControlName="riskTake"
-        />
-      </div>
-    </div>
-  </section>
-
-  <section [formGroup]="operationForm">
-    <h1>Параметры сделки</h1>
-
-    <div class="data">
-      <div class="data__label">Валюта</div>
-      <div class="">
-        <label
-          ><input
-            name="currency"
-            type="radio"
-            value="RUB"
-            [formControl]="rateControl"
-          />RUB</label
-        >
-        <label
-          ><input
-            name="currency"
-            type="radio"
-            value="USD"
-            [formControl]="rateControl"
-          />USD</label
-        >
-      </div>
-    </div>
-
-    <ng-container formGroupName="toolOptions">
-      <div class="data">
-        <div class="data__label">Шаг цены</div>
-        <div class="data__value">
-          <input class="data__value" formControlName="priceStep" />
-        </div>
-      </div>
-
-      <div class="data">
-        <div class="data__label">Стоимость шага цены</div>
-        <div class="data__value">
-          <input class="data__value" formControlName="priceStepCost" />
-        </div>
-      </div>
-    </ng-container>
-
-    <div class="data">
-      <div class="data__label">Цена входа</div>
-      <div class="data__value">
-        <input class="data__value" formControlName="startPrice" />
-      </div>
-    </div>
-
-    <div class="data">
-      <div class="data__label">Цена стоплоса</div>
-      <div class="data__value">
-        <input class="data__value" formControlName="lossPrice" />
-      </div>
-    </div>
-
-    <div class="data">
-      <div class="data__label">Стоп лос в пунктах</div>
-      <div class="data__value">{{ operation?.lossPoints }}</div>
-    </div>
-
-    <button class="calculate-button button" (click)="calculate()">
-      Расчитать
-    </button>
-  </section>
-
-  <section>
-    <h1>Расчет сделки</h1>
-
-    <div class="data">
-      <div class="data__label">риск на сделку</div>
-      <div class="data__value">
-        {{ operation?.riskOnOperation | currency: currencyCode:"symbol" }}
-      </div>
-    </div>
-
-    <div class="data">
-      <div class="data__label">количество лот</div>
-      <div class="data__value">{{ operation?.lots }}</div>
-    </div>
-
-    <div class="data">
-      <div class="data__label">тейк профит в пунктах</div>
-      <div class="data__value">{{ operation?.takePoints }}</div>
-    </div>
-
-    <div class="data">
-      <div class="data__label">тейк профит</div>
-      <div class="data__value">
-        {{ operation?.takePrice | currency: currencyCode:"symbol" }}
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h1>Результат</h1>
-    <div class="operation-results">
-      <app-operation-result
-        title="вход"
-        [currencyCode]="currencyCode"
-        [operationResult]="this.operation?.entryResult"
-      >
-      </app-operation-result>
-      <app-operation-result
-        title="лосс"
-        [currencyCode]="currencyCode"
-        [operationResult]="this.operation?.lossResult"
-      >
-      </app-operation-result>
-      <app-operation-result
-        title="тэйк"
-        [currencyCode]="currencyCode"
-        [operationResult]="this.operation?.takeResult"
-      >
-      </app-operation-result>
-    </div>
-
-    <div class="data">
-      <div class="data__label">Потеря</div>
-      <div class="data__value red">
-        {{ this.operation?.loss | currency: currencyCode:"symbol" }}
-      </div>
-    </div>
-    <div class="data">
-      <div class="data__label">Прибыль</div>
-      <div class="data__value green">
-        {{ this.operation?.profit | currency: currencyCode:"symbol" }}
-      </div>
-    </div>
-  </section>
-</div>
+<footer></footer>

@@ -1,3 +1,54 @@
+@import "./../assets/less/variables.less";
+
+.menu {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+
+  &__item {
+
+  margin: 0 10px 0 0;
+
+    &-linc {
+      box-sizing: border-box;
+
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 64px;
+      height: 64px;
+
+      border: 1px solid @text-color;
+      border-radius: 50%;
+    }
+
+
+
+    ::ng-deep svg {
+      width: 60%;
+      height: 60%;
+
+      path {
+        fill: @text-color;
+      }
+
+      &:hover {
+        path {
+          fill: @text-hover-color;
+        }
+      }
+    }
+
+    &-linc--active {
+      // border-width: 3px;
+      box-shadow: 0 0 7px 4px rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
 .app-wrapper {
   margin: 0 auto;
 }
@@ -18,11 +69,16 @@
   &__value input {
     width: 100%;
     text-align: right;
+    padding: 0 20px;
+    box-sizing: border-box;
   }
 
- &__value &__value-risk-loss,
- &__value &__value-risk-take {
-    width: 20px;
+  &__value &__value-risk-loss,
+  &__value &__value-risk-take {
+    width: 40px;
+    padding: 0 6px;
+    margin: 0;
+    text-align: center;
   }
 }
 
@@ -30,9 +86,6 @@ h1 {
   margin-bottom: 4px;
 }
 
-.calculate-button {
-  margin: 0 auto;
-}
 
 .operation-results {
   display: flex;

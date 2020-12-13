@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { OperationResult } from '../../types/OperationResult';
+import { OperationResult } from '../../../types/OperationResult';
 
 
 @Component({

@@ -1,0 +1,210 @@
+<div class="app-wrapper">
+  <section [formGroup]="depositOptionsForm">
+    <h3>Параметры портфеля</h3>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Депозит</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="deposit"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">
+        <a href="https://www.tinkoff.ru/invest/tariffs/">Комиссия с сделки</a>
+      </div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="commission"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Риск</div>
+      <div class="form-grid__value">
+        <input inputmode="numeric" class="form-grid__value" formControlName="risk" />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Сумма риска</div>
+      <div class="form-grid__value">{{ depositOptions?.riskAmount }}</div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Соотношение риск/прибыль</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value-risk-loss"
+          type="number"
+          formControlName="riskLoss"
+        />
+        /
+        <input
+          inputmode="numeric"
+          class="form-grid__value-risk-take"
+          type="number"
+          formControlName="riskTake"
+        />
+      </div>
+    </div>
+  </section>
+
+  <router-outlet></router-outlet>
+
+  <section [formGroup]="operationForm">
+    <h3>Параметры сделки</h3>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Валюта</div>
+      <div class="">
+        <label
+          ><input
+            inputmode="numeric"
+            name="currency"
+            type="radio"
+            value="RUB"
+            [formControl]="rateControl"
+          />RUB</label
+        >
+        <label
+          ><input
+            inputmode="numeric"
+            name="currency"
+            type="radio"
+            value="USD"
+            [formControl]="rateControl"
+          />USD</label
+        >
+      </div>
+    </div>
+
+    <ng-container formGroupName="toolOptions">
+      <div class="form-grid">
+        <div class="form-grid__label">Шаг цены</div>
+        <div class="form-grid__value">
+          <input
+            inputmode="numeric"
+            class="form-grid__value"
+            formControlName="priceStep"
+          />
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-grid__label">Стоимость шага цены</div>
+        <div class="form-grid__value">
+          <input
+            inputmode="numeric"
+            class="form-grid__value"
+            formControlName="priceStepCost"
+          />
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Цена входа</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="startPrice"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Цена стоплоса</div>
+      <div class="form-grid__value">
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="lossPrice"
+        />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Стоп лос в пунктах</div>
+      <div class="form-grid__value">{{ operation?.lossPoints }}</div>
+    </div>
+
+    <button class="button button--form" (click)="calculate()">
+      Расчитать
+    </button>
+  </section>
+
+  <section>
+    <h3>Расчет сделки</h3>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Риск на сделку</div>
+      <div class="form-grid__value">
+        {{ operation?.riskOnOperation | currency: currencyCode:"symbol" }}
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Количество лот</div>
+      <div class="form-grid__value">{{ operation?.lots }}</div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Тейк профит в пунктах</div>
+      <div class="form-grid__value">{{ operation?.takePoints }}</div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Тейк профит</div>
+      <div class="form-grid__value">
+        {{ operation?.takePrice | currency: currencyCode:"symbol" }}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Результат</h3>
+    <div class="operation-results">
+      <app-operation-result
+        title="Вход"
+        [currencyCode]="currencyCode"
+        [operationResult]="this.operation?.entryResult"
+      >
+      </app-operation-result>
+      <app-operation-result
+        title="Лосс"
+        [currencyCode]="currencyCode"
+        [operationResult]="this.operation?.lossResult"
+      >
+      </app-operation-result>
+      <app-operation-result
+        title="Тэйк"
+        [currencyCode]="currencyCode"
+        [operationResult]="this.operation?.takeResult"
+      >
+      </app-operation-result>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid__label">Потеря</div>
+      <div class="form-grid__value red">
+        {{ this.operation?.loss | currency: currencyCode:"symbol" }}
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-grid__label">Прибыль</div>
+      <div class="form-grid__value green">
+        {{ this.operation?.profit | currency: currencyCode:"symbol" }}
+      </div>
+    </div>
+  </section>
+</div>
