@@ -2,18 +2,85 @@
 @import 'assets/less/input.less';
 @import 'assets/less/variables.less';
 @import 'assets/less/form-grid.less';
+@import 'assets/less/table.less';
+
 
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: @background-color;
-  color: @text-color;
+  margin: 0;
+}
+
+
+textarea,
+select,
+option,
+input {
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
+textarea {
+  height: 150px;
+  padding: 4px;
+}
+
+select {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid @black-border-color;
+}
+
+option {
+  background-color: transparent;
+}
+
+body.black {
+  background-color: @black-background-color;
+  color: @black-text-color;
+
+  header {
+    background-color: #131111;
+  }
+
+  input,
+  textarea,
+  select,
+  .button {
+    color: @black-text-color;
+  }
+
+  a {
+    color: @black-link-color;
+  }
+
+}
+
+body.light {
+  background-color: @light-background-color;
+  color: @light-text-color;
+
+  header {
+    background-color: #525252;
+  }
+
+  input,
+  textarea,
+  select,
+  .button {
+    color: @light-text-color;
+  }
+
+  a {
+    color: @light-link-color;
+  }
 }
 
 input,
 textarea {
   background: transparent;
-  color: @text-color;
+  color: @black-text-color;
 }
 
 .red {

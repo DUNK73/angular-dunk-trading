@@ -1,6 +1,10 @@
 
 export class ConstData {
   public deposit: number;
+
+  public riskInPercent: number;
+  public commissionInPercent: number;
+
   public risk: number;
   public commission: number;
 
@@ -13,14 +17,16 @@ export class ConstData {
 
   constructor(
     deposit: number,
-    commission: number,
-    risk: number,
+    commissionInPercent: number,
+    riskInPercent: number,
     riskLoss: number,
     riskTake: number
   ) {
     this.deposit = deposit;
-    this.commission = commission;
-    this.risk = risk;
+    this.commissionInPercent = commissionInPercent;
+    this.commission = commissionInPercent / 100;
+    this.riskInPercent = riskInPercent;
+    this.risk = riskInPercent / 100;
     this.riskLoss = riskLoss;
     this.riskTake = riskTake;
   }

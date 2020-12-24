@@ -1,17 +1,17 @@
 @import 'variables.less';
 
 .button {
-  border: 1px solid @border-color;
+  border: 1px solid @black-border-color;
   background-color: transparent;
   display: flex;
   padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
-  color: @text-color;
+  color: @black-text-color;
 
 
   &:hover {
-    background-color: fade(@border-color, 10%);
+    background-color: fade(@black-border-color, 10%);
   }
 
   &--form {
@@ -24,4 +24,9 @@
   justify-content: center;
   align-items: center;
   margin: 20px auto;
+  &--bottom {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }
 }

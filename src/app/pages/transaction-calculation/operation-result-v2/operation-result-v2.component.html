@@ -1,0 +1,26 @@
+<table>
+  <tr>
+    <th></th>
+    <th>вход</th>
+    <th>лосс</th>
+    <th>тейк</th>
+  </tr>
+  <tr>
+    <th>Сумма</th>
+    <td class="yellow">{{enter?.operationAmount | currency : currencyCode : 'symbol'}}</td>
+    <td class="yellow">{{loss?.operationAmount | currency : currencyCode : 'symbol'}}</td>
+    <td class="yellow">{{take?.operationAmount | currency : currencyCode : 'symbol'}}</td>
+  </tr>
+  <tr>
+    <th>Комиссия</th>
+    <td class="red">{{enter?.commissionAmount | currency : currencyCode : 'symbol'}}</td>
+    <td class="red">{{loss?.commissionAmount | currency : currencyCode : 'symbol'}}</td>
+    <td class="red">{{take?.commissionAmount | currency : currencyCode : 'symbol'}}</td>
+  </tr>
+  <tr>
+    <th>Сумма + Комиссия</th>
+    <td>{{enter?.fullAmount | currency : currencyCode : 'symbol'}}</td>
+    <td>{{loss?.fullAmount | currency : currencyCode : 'symbol'}}</td>
+    <td>{{take?.fullAmount | currency : currencyCode : 'symbol'}}</td>
+  </tr>
+</table>

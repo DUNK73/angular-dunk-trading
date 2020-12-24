@@ -3,11 +3,7 @@
     <div class="form-grid">
       <div class="form-grid__label">id</div>
       <div class="form-grid__value">
-        <input
-          inputmode="numeric"
-          class="form-grid__value"
-          formControlName="id"
-        />
+        {{ detailForm.value.id }}
       </div>
     </div>
 
@@ -16,7 +12,6 @@
       <div class="form-grid__value">
         <input
           inputmode="numeric"
-          class="form-grid__value"
           type="datetime-local"
           formControlName="date"
         />
@@ -28,53 +23,52 @@
       <div class="form-grid__value">
         <input
           inputmode="numeric"
-          class="form-grid__value"
+          class="input--uppercase"
           formControlName="ticker"
         />
       </div>
     </div>
 
-    <div class="form-grid">
+    <div class="form-grid form-grid--vertical">
       <div class="form-grid__label">Обоснование входа</div>
       <div class="form-grid__value">
-        <textarea
-          inputmode="numeric"
-          class="form-grid__value"
-          formControlName="rationaleForEntry"
-        ></textarea>
+        <textarea formControlName="rationaleForEntry"></textarea>
       </div>
     </div>
 
     <div class="form-grid">
       <div class="form-grid__label">Состояние рынка</div>
       <div class="form-grid__value">
-        <input
-          inputmode="numeric"
-          class="form-grid__value"
-          formControlName="marketCondition"
-        />
+        <select formControlName="volumeAvailability">
+          <option value="1">тренд</option>
+          <option value="2">боковик</option>
+        </select>
       </div>
     </div>
 
     <div class="form-grid">
       <div class="form-grid__label">Паттерн №</div>
       <div class="form-grid__value">
-        <input
-          inputmode="numeric"
-          class="form-grid__value"
-          formControlName="patternNumber"
-        />
+        <select formControlName="patternNumber">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4-1">4-1</option>
+          <option value="4-2">4-2</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
       </div>
     </div>
 
     <div class="form-grid">
       <div class="form-grid__label">Наличие объема</div>
       <div class="form-grid__value">
-        <input
-          inputmode="numeric"
-          class="form-grid__value"
-          formControlName="volumeAvailability"
-        />
+        <select formControlName="volumeAvailability">
+          <option value="1">средний</option>
+          <option value="2">повышенный</option>
+          <option value="3">огромный</option>
+        </select>
       </div>
     </div>
 
@@ -83,7 +77,6 @@
       <div class="form-grid__value">
         <input
           inputmode="numeric"
-          class="form-grid__value"
           formControlName="wayOut"
         />
       </div>
@@ -94,7 +87,6 @@
       <div class="form-grid__value">
         <input
           inputmode="numeric"
-          class="form-grid__value"
           formControlName="evaluationOfEntrance"
         />
       </div>
@@ -104,7 +96,6 @@
       <div class="form-grid__value">
         <input
           inputmode="numeric"
-          class="form-grid__value"
           formControlName="maxPossibleProfitFactor"
         />
       </div>
@@ -114,7 +105,6 @@
       <div class="form-grid__value">
         <input
           inputmode="numeric"
-          class="form-grid__value"
           formControlName="transactionResult"
         />
       </div>
@@ -124,26 +114,20 @@
       <div class="form-grid__value">
         <input
           inputmode="numeric"
-          class="form-grid__value"
           formControlName="deposit"
         />
       </div>
     </div>
-    <div class="form-grid">
+    <div class="form-grid form-grid--vertical">
       <div class="form-grid__label">Ошибки</div>
       <div class="form-grid__value">
-        <textarea
-          inputmode="numeric"
-          class="form-grid__value"
-          formControlName="mistakes"
-        ></textarea>
+        <textarea formControlName="mistakes"></textarea>
       </div>
     </div>
 
-    <section class="form-buttons">
+    <section class="form-buttons form-buttons--bottom">
       <button class="button" (click)="save()">Сохранить</button>
       <button class="button" (click)="cancel()">Отменить</button>
     </section>
-
   </form>
 </section>

@@ -1,23 +1,49 @@
-<header>
-  <nav>
-    <ul class="menu">
-      <li class="menu__item">
-        <a class="menu__item-linc" [routerLink]="['transaction-calculation']" [routerLinkActive]="'menu__item-linc--active'">
-          <app-svg-calculation-icon></app-svg-calculation-icon>
-        </a>
-      </li>
-      <li class="menu__item">
+<div class="layout">
+  <header class="header">
+    <nav>
+      <ul class="menu">
+        <li class="menu__item">
+          <a
+            class="menu__item-linc icon"
+            [routerLink]="['transaction-calculation']"
+            [routerLinkActive]="'icon--active'"
+          >
+            <app-svg-calculation-icon></app-svg-calculation-icon>
+          </a>
+        </li>
+        <li class="menu__item">
+          <a
+            class="menu__item-linc icon"
+            [routerLink]="['transaction-log']"
+            [routerLinkActive]="'icon--active'"
+          >
+            <app-svg-log-icon></app-svg-log-icon>
+          </a>
+        </li>
+        <li class="menu__item">
+          <a
+            class="menu__item-linc icon"
+            [routerLink]="['information']"
+            [routerLinkActive]="'icon--active'"
+          >
+            <app-svg-information-icon></app-svg-information-icon>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <label class="theme-toggle">
+      <input
+        type="checkbox"
+        class="theme-toggle__input"
+        (click)="switchTheme($event)"
+      />
+      <app-svg-glasses-icon></app-svg-glasses-icon>
+    </label>
+  </header>
 
-        <a class="menu__item-linc" [routerLink]="['transaction-log']" [routerLinkActive]="'menu__item-linc--active'">
-          <app-svg-log-icon></app-svg-log-icon>
-        </a>
-      </li>
-    </ul>
-  </nav>
-</header>
+  <main class="main">
+    <router-outlet></router-outlet>
+  </main>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
-
-<footer></footer>
+  <footer></footer>
+</div>

@@ -13,6 +13,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { TransactionLogComponent } from './pages/transaction-log/transaction-log.component';
 import { OperationResult } from './types/OperationResult';
 import { SvgModule } from './svg/svg.module';
+import { ApiModule } from './tinkoff-api/api.module';
+import { Configuration } from './tinkoff-api';
+import { ConfigurationParameters } from './tinkoff-api/configuration';
 registerLocaleData(localeRu, "ru");
 
 const routes: Routes = [
@@ -21,6 +24,7 @@ const routes: Routes = [
   { path: 'path', component: OperationResult },
   { path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) },
   { path: 'transaction-calculation', loadChildren: () => import('./pages/transaction-calculation/transaction-calculation.module').then(m => m.TransactionCalculationModule) },
+  { path: 'information', loadChildren: () => import('./pages/information/information.module').then(m => m.InformationModule) },
   // { path: '**', component: PageNotFoundComponent },
 ];
 
@@ -31,8 +35,18 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    // RouterModule.forRoot(routes)
-    SvgModule
+    // RouterModule.forRoot(routes),
+    SvgModule,
+    ApiModule.forRoot(() => {
+      return new Configuration({
+        apiKeys: null,
+        username: null,
+        password: null,
+        accessToken: 't.xh4xGo0dclMyWF8nj4EcvdlYwnrdr6ldL7Kz9v-9kERg5rdPzkPQWfdM1aIVXVOSyuUyBmcQzd0Pxq5y-3GXxQ',
+        basePath: '',
+        withCredentials: false
+      });
+    })
   ],
   declarations: [AppComponent],
   providers: [

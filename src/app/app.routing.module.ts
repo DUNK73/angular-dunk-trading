@@ -9,6 +9,8 @@ import { TransactionLogComponent } from './pages/transaction-log/transaction-log
 const routes: Routes = [
   { path: 'transaction-calculation', loadChildren: () => import('./pages/transaction-calculation/transaction-calculation.module').then(m => m.TransactionCalculationModule) },
   { path: 'transaction-log', loadChildren: () => import('./pages/transaction-log/transaction-log.module').then(m => m.TransactionLogModule) },
+  { path: 'information', loadChildren: () => import('./pages/information/information.module').then(m => m.InformationModule) },
+
   // { path: 'path', component: TransactionLogComponent },
   // { path: '', redirectTo: 'transaction-calculation', pathMatch: 'full' },
   { path: '**', redirectTo: 'transaction-calculation', pathMatch: 'full' },

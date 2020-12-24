@@ -1,5 +1,23 @@
 @import "./../assets/less/variables.less";
 
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+
+.header {
+  padding: 10px;
+}
+
+.main {
+  box-sizing: border-box;
+  overflow-y: scroll;
+  flex-grow: 1;
+  padding: 10px 10px 70px 10px;
+}
+
 .menu {
   list-style: none;
   display: flex;
@@ -7,96 +25,75 @@
   margin: 0;
 
   &__item {
-
-  margin: 0 10px 0 0;
-
-    &-linc {
-      box-sizing: border-box;
+    margin: 0 10px 0 0;
+  }
+}
 
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+.icon {
+  box-sizing: border-box;
 
-      width: 64px;
-      height: 64px;
 
-      border: 1px solid @text-color;
-      border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 64px;
+  height: 64px;
+
+  border: 1px solid @black-text-color;
+  border-radius: 50%;
+
+  color: @black-text-color;
+  text-decoration: none;
+
+  &--active {
+    border-width: 3px;
+    // box-shadow: 0 0 7px 4px rgba(255, 255, 255, 0.2);
+  }
+
+  ::ng-deep svg {
+    width: 60%;
+    height: 60%;
+
+    path {
+      fill: @black-text-color;
     }
 
-
-
-    ::ng-deep svg {
-      width: 60%;
-      height: 60%;
-
+    &:hover {
       path {
-        fill: @text-color;
-      }
-
-      &:hover {
-        path {
-          fill: @text-hover-color;
-        }
+        fill: @black-text-hover-color;
       }
     }
+  }
+}
 
-    &-linc--active {
-      // border-width: 3px;
-      box-shadow: 0 0 7px 4px rgba(255, 255, 255, 0.2);
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+
+  &__input {
+    display: none;
+  }
+
+  ::ng-deep svg {
+    width: 32px;
+    height: 32px;
+
+    path {
+      fill: white;
+    }
+
+    #lens-left,
+    #lens-right {
+      fill: transparent;
     }
   }
-}
 
-.app-wrapper {
-  margin: 0 auto;
-}
-
-.data {
-  margin-bottom: 2px;
-  display: flex;
-
-  &__label {
-    width: 50%;
-    margin-right: 20px;
+  &__input:checked+app-svg-glasses-icon ::ng-deep svg #lens-left,
+  &__input:checked+app-svg-glasses-icon ::ng-deep svg #lens-right {
+    fill: white;
   }
-
-  &__value {
-    width: 50%;
-  }
-
-  &__value input {
-    width: 100%;
-    text-align: right;
-    padding: 0 20px;
-    box-sizing: border-box;
-  }
-
-  &__value &__value-risk-loss,
-  &__value &__value-risk-take {
-    width: 40px;
-    padding: 0 6px;
-    margin: 0;
-    text-align: center;
-  }
-}
-
-h1 {
-  margin-bottom: 4px;
-}
-
-
-.operation-results {
-  display: flex;
-  justify-content: space-between;
-}
-
-@media (min-width:480px) {
-
-  .data__label {
-    min-width: 180px;
-    margin-right: 20px;
-  }
-
 }

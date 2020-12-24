@@ -3,9 +3,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { Rates } from 'src/app/model/rates';
 import { ExchangeRateService } from 'src/app/services/exchange-rate.service';
+import { IntrinioService } from 'src/app/services/intrinio.service';
+import { MarketService } from 'src/app/tinkoff-api/api/market.service';
 import { ConstData } from 'src/app/types/ConstData';
 import { Operation } from 'src/app/types/Operation';
 import { ToolOption } from 'src/app/types/ToolOption';
+import { MarketstackService } from '../../services/marketstack.service';
+import { AtrInformation, TinkoffService } from '../../services/tinkoff.service';
 
 declare let firebase: any;
 let database = firebase.database();
@@ -40,6 +44,8 @@ export class TransactionCalculationComponent implements OnInit {
   //   204.34
   // );
 
+  public atrPotentialInfo: AtrInformation;
+
   public getRate(code: string): number {
     let valute = this.rates.Valute[code];
     if (!valute) return 1;
@@ -50,8 +56,9 @@ export class TransactionCalculationComponent implements OnInit {
 
   public depositOptionsForm = new FormGroup({
     deposit: new FormControl(),
-    risk: new FormControl(),
-    commission: new FormControl(),
+
+    commissionInPercent: new FormControl(),
+    riskInPercent: new FormControl(),
 
     riskLoss: new FormControl(),
     riskTake: new FormControl()
@@ -63,15 +70,24 @@ export class TransactionCalculationComponent implements OnInit {
     startPrice: new FormControl(),
     lossPrice: new FormControl(),
 
+    tiker: new FormControl(),
+
     toolOptions: new FormGroup({
       priceStep: new FormControl(),
       priceStepCost: new FormControl()
     })
   });
 
-  constructor(private exchangeRateService: ExchangeRateService) { }
+  constructor(
+    private exchangeRateService: ExchangeRateService,
+    private marketstackService: MarketstackService,
+    private intrinioService: IntrinioService,
+    private marketService: MarketService,
+    private tinkoffService: TinkoffService,
+  ) { }
 
   ngOnInit() {
+
     this.exchangeRateService.getRates()
       .pipe(
         tap(x => {
@@ -86,7 +102,7 @@ export class TransactionCalculationComponent implements OnInit {
       .then((snapshot) => {
 
         let data = snapshot.val() as ConstData;
-        this.depositOptions = new ConstData(data.deposit, data.commission, data.risk, data.riskLoss, data.riskTake);
+        this.depositOptions = new ConstData(data.deposit, data.commissionInPercent, data.riskInPercent, data.riskLoss, data.riskTake);
         this.depositOptionsForm.patchValue(this.depositOptions, { emitEvent: false });
 
         this.operation = new Operation(
@@ -115,21 +131,26 @@ export class TransactionCalculationComponent implements OnInit {
         this.operationForm.patchValue(this.operation, { emitEvent: false });
       });
 
-    // this.depositOptionsForm.patchValue(this.depositOptions);
-    // this.operationForm.patchValue(this.operation);
 
     console.log("this.operation", this.operation);
     console.log("this.operationForm.value", this.operationForm.value);
 
     this.depositOptionsForm.valueChanges
       .pipe(
-        tap(x => {
+        tap((x: ConstData) => {
 
           database
             .ref("depositOptions")
             .set(x);
 
-          Object.assign(this.depositOptions, x);
+          this.depositOptions = new ConstData(
+            x.deposit,
+            x.commissionInPercent,
+            x.riskInPercent,
+            x.riskLoss,
+            x.riskTake
+          );
+
         })
       )
       .subscribe();
@@ -157,7 +178,30 @@ export class TransactionCalculationComponent implements OnInit {
       )
       .subscribe();
 
+    this.operationForm
+      .get('tiker')
+      .valueChanges
+      .pipe(
+        tap(tiker => {
+
+          this.tinkoffService.getAtrPotentialInfo(tiker)
+            .pipe(
+              tap(x => {
+                this.atrPotentialInfo = x;
+              })
+            )
+            .subscribe();
+        })
+
+      )
+      .subscribe();
+
     // this.operation.calculate();
+  }
+
+  public refreshTiker() {
+    this.operationForm
+      .get('tiker').updateValueAndValidity();
   }
 
   public calculate() {

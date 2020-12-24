@@ -21,15 +21,21 @@
         <input
           inputmode="numeric"
           class="form-grid__value"
-          formControlName="commission"
+          formControlName="commissionInPercent"
         />
+        %
       </div>
     </div>
 
     <div class="form-grid">
       <div class="form-grid__label">Риск</div>
       <div class="form-grid__value">
-        <input inputmode="numeric" class="form-grid__value" formControlName="risk" />
+        <input
+          inputmode="numeric"
+          class="form-grid__value"
+          formControlName="riskInPercent"
+        />
+        %
       </div>
     </div>
 
@@ -87,6 +93,50 @@
       </div>
     </div>
 
+    <div>
+      <div class="form-grid">
+        <div class="form-grid__label">Тикер</div>
+        <div class="form-grid__value">
+          <input
+            inputmode="numeric"
+            class="form-grid__value input--uppercase"
+            formControlName="tiker"
+          />
+          <button (click)=refreshTiker()></button>
+        </div>
+      </div>
+
+      <ng-container *ngIf="atrPotentialInfo">
+        <div class="form-grid">
+          <div class="form-grid__label">ATR (5)</div>
+          <div class="form-grid__value">
+            {{ atrPotentialInfo?.atr | number }}
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-grid__label">Начало дня</div>
+          <div class="form-grid__value">
+            {{ atrPotentialInfo?.startAverage | number }}
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-grid__label">екущий момент</div>
+          <div class="form-grid__value">
+            {{ atrPotentialInfo?.currentAverage | number }}
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-grid__label">Запас по ATR</div>
+          <div class="form-grid__value">
+            {{ atrPotentialInfo?.atrPotentialPercentage | percent }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
     <ng-container formGroupName="toolOptions">
       <div class="form-grid">
         <div class="form-grid__label">Шаг цены</div>
@@ -138,9 +188,7 @@
       <div class="form-grid__value">{{ operation?.lossPoints }}</div>
     </div>
 
-    <button class="button button--form" (click)="calculate()">
-      Расчитать
-    </button>
+    <button class="button button--form" (click)="calculate()">Расчитать</button>
   </section>
 
   <section>
@@ -160,7 +208,7 @@
 
     <div class="form-grid">
       <div class="form-grid__label">Тейк профит в пунктах</div>
-      <div class="form-grid__value">{{ operation?.takePoints }}</div>
+      <div class="form-grid__value">{{ operation?.takePoints | number }}</div>
     </div>
 
     <div class="form-grid">
@@ -173,7 +221,7 @@
 
   <section>
     <h3>Результат</h3>
-    <div class="operation-results">
+    <!-- <div class="operation-results">
       <app-operation-result
         title="Вход"
         [currencyCode]="currencyCode"
@@ -192,9 +240,19 @@
         [operationResult]="this.operation?.takeResult"
       >
       </app-operation-result>
+    </div> -->
+
+    <div class="operation-results-v2">
+      <app-operation-result-v2
+        [currencyCode]="currencyCode"
+        [enter]="this.operation?.entryResult"
+        [loss]="this.operation?.lossResult"
+        [take]="this.operation?.takeResult"
+      >
+      </app-operation-result-v2>
     </div>
 
-    <div class="form-grid">
+    <!-- <div class="form-grid">
       <div class="form-grid__label">Потеря</div>
       <div class="form-grid__value red">
         {{ this.operation?.loss | currency: currencyCode:"symbol" }}
@@ -204,6 +262,16 @@
       <div class="form-grid__label">Прибыль</div>
       <div class="form-grid__value green">
         {{ this.operation?.profit | currency: currencyCode:"symbol" }}
+      </div>
+    </div> -->
+
+
+    <div class="total">
+      <div class="red">
+        - {{ this.operation?.loss | currency: currencyCode:"symbol" }}
+      </div>
+      <div class="green">
+        + {{ this.operation?.profit | currency: currencyCode:"symbol" }}
       </div>
     </div>
   </section>
